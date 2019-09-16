@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.cprocmobile.MainActivity">
+
+    <item android:id="@+id/menu_calc" android:title="Calcular" />
+    <item android:id="@+id/menu_conv" android:title="Convênios" />
+    <item android:id="@+id/menu_sair" android:title="Sair" />
+</menu>
