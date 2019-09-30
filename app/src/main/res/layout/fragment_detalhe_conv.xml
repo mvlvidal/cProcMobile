@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CadastroConvenioFragment">
+    tools:context=".fragments.DetalheConvFragment">
 
 
     <ScrollView
@@ -35,12 +35,12 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/etNome"
+                    android:id="@+id/txtNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:singleLine="true"
-                    />
+                    android:enabled="false"/>
 
             </LinearLayout>
 
@@ -56,11 +56,14 @@
                     android:text="Tabela HM:"
                     android:textSize="25dp" />
 
-                <Spinner
-                    android:id="@+id/spTbHm"
+                <EditText
+                    android:id="@+id/txtTabHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:enabled="false"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -75,11 +78,13 @@
                     android:text="Porte HM:"
                     android:textSize="25dp" />
 
-                <Spinner
-                    android:id="@+id/spPorteHm"
+                <EditText
+                    android:id="@+id/txtPorteHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -95,10 +100,11 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edPercPorteHm"
+                    android:id="@+id/txtPercPorteHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -114,10 +120,11 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edUcoHm"
+                    android:id="@+id/txtUcoHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -133,10 +140,11 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edChHm"
+                    android:id="@+id/txtChHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -151,11 +159,13 @@
                     android:text="Tabela SADT:"
                     android:textSize="25dp" />
 
-                <Spinner
-                    android:id="@+id/spTbSadt"
+                <EditText
+                    android:id="@+id/txtTabSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -170,11 +180,13 @@
                     android:text="Porte SADT:"
                     android:textSize="25dp" />
 
-                <Spinner
-                    android:id="@+id/spPorteSadt"
+                <EditText
+                    android:id="@+id/txtPorteSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -190,10 +202,11 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edPercPorteSadt"
+                    android:id="@+id/txtPercPorteSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -209,10 +222,11 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edUcoSadt"
+                    android:id="@+id/txtUcoSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -228,27 +242,26 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edChSadt"
+                    android:id="@+id/txtChSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <Button
-                android:id="@+id/btnSalvar"
+                android:id="@+id/btnEditar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Salvar"/>
+                android:text="Editar"/>
 
             <Button
-                android:id="@+id/btnCancelar"
+                android:id="@+id/btnVoltar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cancelar"/>
+                android:text="Voltar"/>
 
         </LinearLayout>
-
     </ScrollView>
-
 
 </FrameLayout>

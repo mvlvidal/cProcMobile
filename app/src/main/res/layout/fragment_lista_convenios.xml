@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ListaConveniosFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,8 +12,24 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="LISTA" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="Convênios Cadastrados"
+            android:textAlignment="center"
+            android:textSize="25dp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnConvList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Nome do Convênio" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </FrameLayout>
