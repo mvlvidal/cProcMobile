@@ -3,6 +3,7 @@ package br.com.mvlvidal.cprocmobile.model;
 public class Procedimento extends AbstractModel {
 
     private String descricao;
+    private Integer codigo;
     private Float ch;
     private Float co;
     private String porteMedico;
@@ -13,10 +14,11 @@ public class Procedimento extends AbstractModel {
     private String tabela;
     private Float percPorte;
 
-    public Procedimento(Long id,Float ch, String descricao, Float co, String porteMedico, Integer porteAnestesico, Float qtdFilme, Integer qtdAuxilio, String tipo, String tabela, Float percPorte) {
+    public Procedimento(Long id, String descricao, Integer codigo, Float ch, Float co, String porteMedico, Integer porteAnestesico, Float qtdFilme, Integer qtdAuxilio, String tipo, String tabela, Float percPorte) {
         this.id = id;
-        this.ch = ch;
         this.descricao = descricao;
+        this.codigo = codigo;
+        this.ch = ch;
         this.co = co;
         this.porteMedico = porteMedico;
         this.porteAnestesico = porteAnestesico;
@@ -35,8 +37,12 @@ public class Procedimento extends AbstractModel {
         this.descricao = descricao;
     }
 
-    public Float getCo() {
-        return co;
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public Float getCh() {
@@ -45,6 +51,10 @@ public class Procedimento extends AbstractModel {
 
     public void setCh(Float ch) {
         this.ch = ch;
+    }
+
+    public Float getCo() {
+        return co;
     }
 
     public void setCo(Float co) {

@@ -6,11 +6,7 @@ import br.com.mvlvidal.cprocmobile.model.Procedimento;
 
 public interface ProcedimentoDao {
 
-    void salvar(Procedimento procedimento);
-
-    void editar(Procedimento procedimento);
-
-    void deletar(Procedimento procedimento);
+    String popularTabela();
 
     Procedimento buscarPorId(Long id);
 

@@ -2,24 +2,9 @@ package br.com.mvlvidal.cprocmobile.model;
 
 public class PorteMedico extends AbstractModel {
 
-    private String tabPorte; //Tipo: CBHPM 5ª 2009
-    private String nome; //Tipo: 3A
+    private String nome; //Tipo: CBHPM 5ª 2009
+    private String porte; //Tipo: 3A
     private Float valor;
-
-    public PorteMedico(Long id, String tabPorte, String nome, Float valor) {
-        this.id = id;
-        this.tabPorte = tabPorte;
-        this.nome = nome;
-        this.valor = valor;
-    }
-
-    public String getTabPorte() {
-        return tabPorte;
-    }
-
-    public void setTabPorte(String tabPorte) {
-        this.tabPorte = tabPorte;
-    }
 
     public String getNome() {
         return nome;
@@ -27,6 +12,14 @@ public class PorteMedico extends AbstractModel {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getPorte() {
+        return porte;
+    }
+
+    public void setPorte(String porte) {
+        this.porte = porte;
     }
 
     public Float getValor() {
