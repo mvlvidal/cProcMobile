@@ -7,8 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import br.com.mvlvidal.cprocmobile.model.Convenio;
 import br.com.mvlvidal.cprocmobile.model.Procedimento;
 
 public class ProcedimentoDaoImpl extends SQLiteOpenHelper implements ProcedimentoDao{
@@ -52,8 +54,36 @@ public class ProcedimentoDaoImpl extends SQLiteOpenHelper implements Procediment
     }
 
     @Override
-    public List<Procedimento> buscarTodos() {
-        return null;
+    public List<Procedimento> buscarTodos(Convenio conv) {
+
+        List<Procedimento> retorno = new ArrayList<>();
+
+        try {
+            String tabela = "procedimento";
+            String[] campos = new String[]{"_id", "descricao", "codigo"};
+            String where1 = "tabela = '" + conv.getTabHm() + "' and tabela = '" + conv.getTabSadt() + "'";
+            String[] where2 = null;
+            String groupBy = null;
+            String orderBy = null;
+            String having = null;
+
+            Cursor c = getReadableDatabase().query(tabela, campos, where1, where2, groupBy, orderBy, having);
+
+            while (c.moveToNext()) {
+                Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
+                String colDescricao = c.getString(c.getColumnIndex("descricao"));
+                Integer colCodigo = c.getInt(c.getColumnIndex("codigo"));
+
+                Procedimento proc = new Procedimento(colId, colDescricao, colCodigo);
+
+                retorno.add(proc);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        return retorno;
     }
 
 
@@ -75,6 +105,9 @@ public class ProcedimentoDaoImpl extends SQLiteOpenHelper implements Procediment
                 "percPorte Float" +
                 ")";
         db.execSQL(sqlProc);
+
+        db.execSQL("insert into procedimento (descricao,codigo,porteMedico" +
+                "tipo,tabela,percPorte) values ('Consulta',10101012,'1A','hm','cbhpm5',1.0)");
 
     }
 

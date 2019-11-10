@@ -29,6 +29,12 @@ public class Procedimento extends AbstractModel {
         this.percPorte = percPorte;
     }
 
+    public Procedimento(Long id, String descricao, Integer codigo){
+        this.id = id;
+        this.descricao = descricao;
+        this.codigo = codigo;
+    }
+
     public String getDescricao() {
         return descricao;
     }
