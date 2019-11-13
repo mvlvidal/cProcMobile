@@ -25,6 +25,11 @@ public class Convenio extends AbstractModel {
         this.percPorteSadt = percPorteSadt;
     }
 
+    public Convenio(Long id, String nome){
+        this.id = id;
+        this.nome = nome;
+    }
+
     public String getNome() {
         return nome;
     }

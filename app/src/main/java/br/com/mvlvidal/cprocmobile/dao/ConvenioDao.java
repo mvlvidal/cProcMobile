@@ -6,11 +6,9 @@ import br.com.mvlvidal.cprocmobile.model.Convenio;
 
 public interface ConvenioDao {
 
-    void salvar(Convenio convenio);
+    boolean salvar(Convenio convenio);
 
-    void editar(Convenio convenio);
-
-    void deletar(Long id);
+    boolean deletar(Long id);
 
     Convenio buscarPorId(Long id);
 
