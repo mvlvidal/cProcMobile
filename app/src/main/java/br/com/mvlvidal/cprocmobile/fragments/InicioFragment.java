@@ -10,13 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
+import java.util.List;
 import br.com.mvlvidal.cprocmobile.R;
+import br.com.mvlvidal.cprocmobile.adapter.ArrayAdapterConvenio;
+import br.com.mvlvidal.cprocmobile.dao.ConvenioDaoImpl;
+import br.com.mvlvidal.cprocmobile.model.Convenio;
 
 public class InicioFragment extends Fragment {
 
     private Button btNovo;
     private Button btProcLista;
+    private Spinner spnConv;
     private FragmentActivity fragmentActivity;
+    List<Convenio> convenios;
 
     public InicioFragment() {
         // Required empty public constructor
@@ -48,10 +55,14 @@ public class InicioFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
         btNovo = v.findViewById(R.id.btnNovo);
-        btProcLista = v.findViewById(R.id.btnList);
-
         btNovo.setOnClickListener(clickNovo);
-        btProcLista.setOnClickListener(clickProcLista);
+
+        //Spinner Convenios
+        spnConv = v.findViewById(R.id.spinnerConv);
+        ConvenioDaoImpl cdao = new ConvenioDaoImpl(this.fragmentActivity);
+        convenios = cdao.buscarTodos();
+        ArrayAdapterConvenio arrayConvenio = new ArrayAdapterConvenio(this.fragmentActivity, convenios);
+        spnConv.setAdapter(arrayConvenio);
 
         return v;
     }
@@ -71,6 +82,7 @@ public class InicioFragment extends Fragment {
 
     //----------------------------------------------------------------------//
 
+    /**
     View.OnClickListener clickProcLista = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -81,5 +93,5 @@ public class InicioFragment extends Fragment {
             ft.commit();
         }
     };
-
+    */
 }

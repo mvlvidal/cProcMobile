@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.mvlvidal.cprocmobile.model.Convenio;
+import br.com.mvlvidal.cprocmobile.model.TabelaPortes;
 
 public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
 
@@ -33,12 +34,16 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
                 ", tabSadt varchar(20)"+
                 ", percPorteHm Float"+
                 ", percPorteSadt Float"+
+                ",idTabPortesHm Integer"+
+                ",idTabPortesSadt Integer"+
+                ",foreign key(idTabPortesHm) references tabelaPortes(_id)"+
+                ",foreign key(idTabPortesSadt) references tabelaPortes(_id)"+
                 ")";
 
         db.execSQL(sql);
 
         db.execSQL("insert into convenio (nome,ucoSadt,ucoHm,valorChHm,valorChSadt,tabHm,tabSadt" +
-                ",percPorteHm,percPorteSadt) values ('CNU', 10.0,10.0,0,0,'cbhpm5','amb92',1.0,1.0)");
+                ",percPorteHm,percPorteSadt,idTabPortesHm,idTabPortesSadt) values ('CNU', 10.0,10.0,0,0,'cbhpm5','amb92',1.0,1.0,1,1)");
     }
 
     @Override
@@ -63,6 +68,8 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
             cv.put("tabSadt", convenio.getTabSadt());
             cv.put("percPorteHm", convenio.getPercPorteHm());
             cv.put("percPorteSadt", convenio.getPercPorteSadt());
+            cv.put("idTabPortesHm", convenio.getTabelaPortesHm().getId());
+            cv.put("idTabPortesSadt", convenio.getTabelaPortesSadt().getId());
 
             if(convenio.getId() == null){
 
@@ -105,7 +112,7 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
 
         String nomeTabela = "convenio";
         String[] campos = {"_id", "nome", "ucoSadt", "ucoHm", "valorChHm", "valorChSadt", "tabHm",
-                "tabSadt", "percPorteHm", "percPorteSadt"};
+                "tabSadt", "percPorteHm", "percPorteSadt", "idTabPorteHm", "idTabPorteSadt"};
         String where1 = "_id = "+ id;
         String[] where2 = null;
         String groupBy = null;
@@ -124,9 +131,11 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
         String colTabSadt = c.getString(c.getColumnIndex("tabSadt"));
         Float colPercPorteHm = c.getFloat(c.getColumnIndex("percPorteHm"));
         Float colPercPorteSadt = c.getFloat(c.getColumnIndex("percPorteSadt"));
+        Long colIdTabPortesHm = Long.valueOf(c.getInt(c.getColumnIndex("idTabPortesHm")));
+        Long colIdTabPortesSadt = Long.valueOf(c.getInt(c.getColumnIndex("idTabPortesSadt")));
 
         return new Convenio(colId,colNome,colUcoSadt,colUcoHm,colValorChHm,colValorSadt,colTabHm,
-                colTabSadt,colPercPorteHm,colPercPorteSadt);
+                colTabSadt,colPercPorteHm,colPercPorteSadt, new TabelaPortes(colIdTabPortesHm, ""), new TabelaPortes(colIdTabPortesSadt, ""));
     }
 
     @Override

@@ -1,12 +1,11 @@
-package com.example.cprocmobile.fragments;
+package br.com.mvlvidal.cprocmobile.fragments;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.cprocmobile.R;
+import br.com.mvlvidal.cprocmobile.R;
 
 public class CalculoFragment extends Fragment {
 

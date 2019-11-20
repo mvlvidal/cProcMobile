@@ -11,8 +11,10 @@ public class Convenio extends AbstractModel {
     private String tabSadt;
     private Float percPorteHm;
     private Float percPorteSadt;
+    private TabelaPortes tabelaPortesHm;
+    private TabelaPortes tabelaPortesSadt;
 
-    public Convenio(Long id, String nome, Float ucoSadt, Float ucoHm, Float valorChHm, Float valorChSadt, String tabHm, String tabSadt, Float percPorteHm, Float percPorteSadt) {
+    public Convenio(Long id, String nome, Float ucoSadt, Float ucoHm, Float valorChHm, Float valorChSadt, String tabHm, String tabSadt, Float percPorteHm, Float percPorteSadt, TabelaPortes tabelaPortesHm, TabelaPortes tabelaPortesSadt) {
         this.id = id;
         this.nome = nome;
         this.ucoSadt = ucoSadt;
@@ -23,6 +25,8 @@ public class Convenio extends AbstractModel {
         this.tabSadt = tabSadt;
         this.percPorteHm = percPorteHm;
         this.percPorteSadt = percPorteSadt;
+        this.tabelaPortesHm = tabelaPortesHm;
+        this.tabelaPortesSadt = tabelaPortesSadt;
     }
 
     public Convenio(Long id, String nome){
@@ -100,5 +104,21 @@ public class Convenio extends AbstractModel {
 
     public void setPercPorteSadt(Float percPorteSadt) {
         this.percPorteSadt = percPorteSadt;
+    }
+
+    public TabelaPortes getTabelaPortesHm() {
+        return tabelaPortesHm;
+    }
+
+    public void setTabelaPortesHm(TabelaPortes tabelaPortesHm) {
+        this.tabelaPortesHm = tabelaPortesHm;
+    }
+
+    public TabelaPortes getTabelaPortesSadt() {
+        return tabelaPortesSadt;
+    }
+
+    public void setTabelaPortesSadt(TabelaPortes tabelaPortesSadt) {
+        this.tabelaPortesSadt = tabelaPortesSadt;
     }
 }
