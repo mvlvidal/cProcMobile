@@ -95,7 +95,7 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edPercPorteHm"
+                    android:id="@+id/etPercPorteHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
@@ -114,7 +114,7 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edUcoHm"
+                    android:id="@+id/etUcoHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
@@ -133,7 +133,7 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edChHm"
+                    android:id="@+id/etChHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
@@ -190,7 +190,7 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edPercPorteSadt"
+                    android:id="@+id/etPercPorteSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
@@ -209,7 +209,7 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edUcoSadt"
+                    android:id="@+id/etUcoSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
@@ -228,7 +228,7 @@
                     android:textSize="25dp" />
 
                 <EditText
-                    android:id="@+id/edChSadt"
+                    android:id="@+id/etChSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />

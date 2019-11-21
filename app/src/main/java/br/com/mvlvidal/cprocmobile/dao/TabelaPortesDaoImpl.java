@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import br.com.mvlvidal.cprocmobile.model.TabelaPortes;
 
-public class TabelaPortesImpl extends SQLiteOpenHelper implements TabelaPortesDao {
+public class TabelaPortesDaoImpl extends SQLiteOpenHelper implements TabelaPortesDao {
 
     private Context context;
 
-    public TabelaPortesImpl(Context context) {
+    public TabelaPortesDaoImpl(Context context) {
         super(context, "procDados.db", null, 1);
         this.context = context;
     }
@@ -21,14 +21,14 @@ public class TabelaPortesImpl extends SQLiteOpenHelper implements TabelaPortesDa
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String sql = "create table if not exists tabelaPortes(" +
-                "_id Integer primary key"+
-                ",nome varchar(40)"+
-                ")";
+        String sql = "create table if not exists tabelaportes(_id Integer primary key, nome varchar(40))";
+
         db.execSQL(sql);
 
-        db.execSQL("insert into tabelaPortes(_id, nome) values(1, '5ª 2009')");
-        db.execSQL("insert into tabelaPortes(_id, nome) values(2, '5ª 2008')");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+        db.execSQL("insert into tabelaportes(_id, nome) values(1, '5ª 2009')");
+        db.execSQL("insert into tabelaportes(_id, nome) values(2, '5ª 2008')");
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TabelaPortesImpl extends SQLiteOpenHelper implements TabelaPortesDa
     @Override
     public TabelaPortes buscarPorId(Long id) {
 
-        String nomeTabela = "tabelaPortes";
+        String nomeTabela = "tabelaportes";
         String[] campos = {"_id", "nome"};
         String where1 = "_id = " + id;
         String[] where2 = null;
@@ -60,7 +60,7 @@ public class TabelaPortesImpl extends SQLiteOpenHelper implements TabelaPortesDa
 
         List<TabelaPortes> retorno = new ArrayList<>();
 
-        String nomeTabela = "tabelaPortes";
+        String nomeTabela = "tabelaportes";
         String[] campos = {"_id", "nome"};
         String where1 = null;
         String[] where2 = null;
