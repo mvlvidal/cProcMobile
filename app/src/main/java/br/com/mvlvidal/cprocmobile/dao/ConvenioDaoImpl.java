@@ -11,44 +11,12 @@ import java.util.List;
 import br.com.mvlvidal.cprocmobile.model.Convenio;
 import br.com.mvlvidal.cprocmobile.model.TabelaPortes;
 
-public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
+public class ConvenioDaoImpl implements ConvenioDao {
 
-    private Context context;
+    private final ConnectionFactory factory;
 
-    public ConvenioDaoImpl(Context context) {
-        super(context, "procDados.db", null, 1);
-        this.context = context;
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-
-        String sql = "create table if not exists convenio(" +
-                "_id Integer primary key autoincrement"+
-                ", nome varchar(40)"+
-                ", ucoSadt Float"+
-                ", ucoHm Float"+
-                ", valorChHm Float"+
-                ", valorChSadt Float"+
-                ", tabHm varchar(20)"+
-                ", tabSadt varchar(20)"+
-                ", percPorteHm Float"+
-                ", percPorteSadt Float"+
-                ",idTabPortesHm Integer"+
-                ",idTabPortesSadt Integer"+
-                ",foreign key(idTabPortesHm) references tabelaPortes(_id)"+
-                ",foreign key(idTabPortesSadt) references tabelaPortes(_id)"+
-                ")";
-
-        db.execSQL(sql);
-
-        db.execSQL("insert into convenio (nome,ucoSadt,ucoHm,valorChHm,valorChSadt,tabHm,tabSadt" +
-                ",percPorteHm,percPorteSadt,idTabPortesHm,idTabPortesSadt) values ('CNU', 10.0,10.0,0,0,'cbhpm5','amb92',1.0,1.0,1,1)");
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+    public ConvenioDaoImpl(ConnectionFactory factory){
+        this.factory = factory;
     }
 
     @Override
@@ -57,7 +25,7 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
         boolean retorno = false;
 
         try{
-
+            SQLiteDatabase db = factory.conectar();
             ContentValues cv = new ContentValues();
             cv.put("nome", convenio.getNome());
             cv.put("ucoSadt", convenio.getUcoSadt());
@@ -73,12 +41,12 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
 
             if(convenio.getId() == null){
 
-                long i = getWritableDatabase().insert("convenio", null, cv);
+                long i = db.insert("convenio", null, cv);
                 retorno = (i>0 ? true : false);
 
             }else{
                 String where = "_id = " + convenio.getId();
-                int i = getWritableDatabase().update("convenio", cv, where, null);
+                int i = db.update("convenio", cv, where, null);
                 retorno = (i>0 ? true : false);
             }
 
@@ -95,9 +63,9 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
         boolean retorno = false;
 
         try {
-
+            SQLiteDatabase db = factory.conectar();
             String where = "_id = " + id;
-            int i = getWritableDatabase().delete("convenio", where, null);
+            int i = db.delete("convenio", where, null);
             retorno = (i > 0 ? true : false);
 
         }catch (Exception e){
@@ -109,7 +77,7 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
 
     @Override
     public Convenio buscarPorId(Long id) {
-
+        SQLiteDatabase db = factory.conectar();
         String nomeTabela = "convenio";
         String[] campos = {"_id", "nome", "ucoSadt", "ucoHm", "valorChHm", "valorChSadt", "tabHm",
                 "tabSadt", "percPorteHm", "percPorteSadt", "idTabPorteHm", "idTabPorteSadt"};
@@ -119,7 +87,7 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
         String orderBy = null;
         String having = null;
 
-        Cursor c = getReadableDatabase().query(nomeTabela, campos, where1, where2, groupBy, orderBy, having);
+        Cursor c = db.query(nomeTabela, campos, where1, where2, groupBy, orderBy, having);
 
         Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
         String colNome = c.getString(c.getColumnIndex("nome"));
@@ -142,7 +110,7 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
     public List<Convenio> buscarTodos() {
 
         List<Convenio> retorno = new ArrayList<>();
-
+        SQLiteDatabase db = factory.conectar();
         String nomeTabela = "convenio";
         String[] campos = {"_id", "nome"};
         String where1 = null;
@@ -151,7 +119,7 @@ public class ConvenioDaoImpl extends SQLiteOpenHelper implements ConvenioDao {
         String orderBy = null;
         String having = null;
 
-        Cursor c = getReadableDatabase().query(nomeTabela, campos, where1, where2, groupBy, orderBy, having);
+        Cursor c = db.query(nomeTabela, campos, where1, where2, groupBy, orderBy, having);
 
         while(c.moveToNext()){
 

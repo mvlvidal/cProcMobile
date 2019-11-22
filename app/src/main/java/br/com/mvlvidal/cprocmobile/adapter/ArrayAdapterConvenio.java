@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.List;
 
 import br.com.mvlvidal.cprocmobile.R;
@@ -37,4 +40,10 @@ public class ArrayAdapterConvenio extends ArrayAdapter<Convenio> {
 
         return v;
     }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return super.getDropDownView(position, convertView, parent);
+    }
+
 }

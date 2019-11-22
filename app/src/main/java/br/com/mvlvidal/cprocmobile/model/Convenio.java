@@ -121,4 +121,9 @@ public class Convenio extends AbstractModel {
     public void setTabelaPortesSadt(TabelaPortes tabelaPortesSadt) {
         this.tabelaPortesSadt = tabelaPortesSadt;
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }

@@ -10,6 +10,6 @@ public interface ProcedimentoDao {
 
     Procedimento buscarPorId(Long id);
 
-    List<Procedimento> buscarTodos(Convenio c);
+    List<Procedimento> buscarTodos(String tbHm, String tbSadt);
 
 }

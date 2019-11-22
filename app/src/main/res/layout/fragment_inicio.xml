@@ -22,10 +22,10 @@
                 android:gravity="left"/>
 
             <Button
-                android:id="@+id/btnNovo"
+                android:id="@+id/btnSelecionar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Novo"
+                android:text="Selecionar"
                 android:textAlignment="center"
                 android:gravity="right"/>
 
@@ -40,7 +40,7 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome do Convênio - CBHPM 5ª"
+                android:text="Procedimentos"
                 android:textAlignment="center"
                 android:textSize="20dp" />
 

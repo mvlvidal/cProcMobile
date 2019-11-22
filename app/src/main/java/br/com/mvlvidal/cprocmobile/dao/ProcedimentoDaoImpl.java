@@ -1,5 +1,6 @@
 package br.com.mvlvidal.cprocmobile.dao;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,19 +11,19 @@ import java.util.List;
 import br.com.mvlvidal.cprocmobile.model.Convenio;
 import br.com.mvlvidal.cprocmobile.model.Procedimento;
 
-public class ProcedimentoDaoImpl extends SQLiteOpenHelper implements ProcedimentoDao{
+public class ProcedimentoDaoImpl implements ProcedimentoDao{
 
-    Context context;
+    private ConnectionFactory factory;
+    private Context context;
 
-    public ProcedimentoDaoImpl(Context context) {
-        super(context, "procDados.db", null, 1);
-        this.context = context;
+    public ProcedimentoDaoImpl(ConnectionFactory factory) {
+        this.factory = factory;
     }
 
     @Override
     public Procedimento buscarPorId(Long id) {
 
-
+        SQLiteDatabase db = factory.conectar();
         String tabela = "procedimento";
         String[] campos = new String[]{"_id","descricao", "codigo","ch","co","porteMedico","porteAnestesico",
                 "qtdFilme","qtdAuxilio","tipo","tabela","percPorte"};
@@ -32,7 +33,7 @@ public class ProcedimentoDaoImpl extends SQLiteOpenHelper implements Procediment
         String orderBy = null;
         String having = null;
 
-        Cursor c = getReadableDatabase().query(tabela, campos, where1, where2, groupBy, orderBy, having);
+        Cursor c = db.query(tabela, campos, where1, where2, groupBy, orderBy, having);
 
         Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
         String colDescricao = c.getString(c.getColumnIndex("descricao"));
@@ -50,21 +51,24 @@ public class ProcedimentoDaoImpl extends SQLiteOpenHelper implements Procediment
         return new Procedimento(colId,colDescricao,colCodigo,colCh,colCo,colPorteMed,colPorteAnes,colQtdFilme,colQtdAuxilio,colTipo,colTabela, colPercPorte);
     }
 
+
+
     @Override
-    public List<Procedimento> buscarTodos(Convenio conv) {
+    public List<Procedimento> buscarTodos(String tbHm, String tbSadt) {
 
         List<Procedimento> retorno = new ArrayList<>();
 
         try {
+            SQLiteDatabase db = factory.conectar();
             String tabela = "procedimento";
             String[] campos = new String[]{"_id", "descricao", "codigo"};
-            String where1 = "tabela = '" + conv.getTabHm() + "' and tabela = '" + conv.getTabSadt() + "'";
+            String where1 = "tabela = '" + tbHm + "' or tabela = '" + tbSadt + "'";
             String[] where2 = null;
             String groupBy = null;
             String orderBy = null;
             String having = null;
 
-            Cursor c = getReadableDatabase().query(tabela, campos, where1, where2, groupBy, orderBy, having);
+            Cursor c = db.query(tabela, campos, where1, where2, groupBy, orderBy, having);
 
             while (c.moveToNext()) {
                 Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
@@ -76,43 +80,16 @@ public class ProcedimentoDaoImpl extends SQLiteOpenHelper implements Procediment
                 retorno.add(proc);
             }
         }catch(Exception e){
-            e.printStackTrace();
+            AlertDialog.Builder dlg = new AlertDialog.Builder(context);
+            dlg.setTitle("Erro!");
+            dlg.setMessage(e.getMessage());
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
         }
 
 
         return retorno;
     }
-
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-
-        String sqlProc = "create table if not exists procedimento(" +
-                "_id Integer primary key autoincrement," +
-                "descricao varchar(40),"+
-                "codigo Integer," +
-                "ch Float," +
-                "co Float," +
-                "porteMedico varchar(3)," +
-                "porteAnestesico Integer," +
-                "qtdFilme Float," +
-                "qtdAuxilio Integer," +
-                "tipo varchar(4)," +
-                "tabela varchar(20)," +
-                "percPorte Float" +
-                ")";
-        db.execSQL(sqlProc);
-
-        db.execSQL("insert into procedimento (descricao,codigo,porteMedico" +
-                "tipo,tabela,percPorte) values ('Consulta',10101012,'1A','hm','cbhpm5',1.0)");
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
-
 
     @Override
     public String popularTabela() {

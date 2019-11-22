@@ -38,7 +38,7 @@ public class ArrayAdapterProcedimento extends ArrayAdapter<Procedimento> {
         TextView txtCodigo = v.findViewById(R.id.txtCodigo);
         TextView txtDescricao = v.findViewById(R.id.txtDescricao);
 
-        txtCodigo.setText(procedimento.getCodigo());
+        txtCodigo.setText(String.valueOf(procedimento.getCodigo()));
         txtDescricao.setText(procedimento.getDescricao());
 
         return v;
