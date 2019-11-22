@@ -17,23 +17,22 @@
             android:textAlignment="center"
             android:textSize="25dp" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cadastrar Novo"/>
-
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnConvList"
+                android:id="@+id/btnNovoConv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Nome do Convênio" />
+                android:text="Cadastrar Novo"/>
+
+            <ListView
+                android:id="@+id/listaConvenios"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
