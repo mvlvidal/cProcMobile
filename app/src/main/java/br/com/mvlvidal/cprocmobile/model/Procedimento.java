@@ -29,10 +29,11 @@ public class Procedimento extends AbstractModel {
         this.percPorte = percPorte;
     }
 
-    public Procedimento(Long id, String descricao, Integer codigo){
+    public Procedimento(Long id, String descricao, Integer codigo, String tabela){
         this.id = id;
         this.descricao = descricao;
         this.codigo = codigo;
+        this.tabela = tabela;
     }
 
     public String getDescricao() {

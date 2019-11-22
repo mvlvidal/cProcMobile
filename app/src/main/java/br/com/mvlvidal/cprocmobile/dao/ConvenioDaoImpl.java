@@ -25,7 +25,7 @@ public class ConvenioDaoImpl implements ConvenioDao {
         boolean retorno = false;
 
         try{
-            SQLiteDatabase db = factory.conectar();
+            SQLiteDatabase db = factory.conectarEscrita();
             ContentValues cv = new ContentValues();
             cv.put("nome", convenio.getNome());
             cv.put("ucoSadt", convenio.getUcoSadt());
@@ -63,7 +63,7 @@ public class ConvenioDaoImpl implements ConvenioDao {
         boolean retorno = false;
 
         try {
-            SQLiteDatabase db = factory.conectar();
+            SQLiteDatabase db = factory.conectarEscrita();
             String where = "_id = " + id;
             int i = db.delete("convenio", where, null);
             retorno = (i > 0 ? true : false);
@@ -77,7 +77,7 @@ public class ConvenioDaoImpl implements ConvenioDao {
 
     @Override
     public Convenio buscarPorId(Long id) {
-        SQLiteDatabase db = factory.conectar();
+        SQLiteDatabase db = factory.conectarLeitura();
         String nomeTabela = "convenio";
         String[] campos = {"_id", "nome", "ucoSadt", "ucoHm", "valorChHm", "valorChSadt", "tabHm",
                 "tabSadt", "percPorteHm", "percPorteSadt", "idTabPorteHm", "idTabPorteSadt"};
@@ -110,7 +110,8 @@ public class ConvenioDaoImpl implements ConvenioDao {
     public List<Convenio> buscarTodos() {
 
         List<Convenio> retorno = new ArrayList<>();
-        SQLiteDatabase db = factory.conectar();
+        SQLiteDatabase db = factory.conectarLeitura();
+
         String nomeTabela = "convenio";
         String[] campos = {"_id", "nome","tabHm", "tabSadt"};
         String where1 = null;

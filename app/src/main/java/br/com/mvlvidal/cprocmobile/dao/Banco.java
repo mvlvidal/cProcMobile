@@ -4,6 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.net.ConnectException;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.mvlvidal.cprocmobile.util.InsertsPortes;
 import br.com.mvlvidal.cprocmobile.util.InsertsProcedimentos;
 
@@ -50,7 +54,7 @@ public class Banco extends SQLiteOpenHelper {
             ", nome varchar(40)" +
             ");";
 
-    private static final String CREATE_PORTEMEDICO = "create table if not exists porteMedico(" +
+    private static final String CREATE_PORTEMEDICO = "create table if not exists portemedico(" +
             "_id Integer primary key autoincrement"+
             ", nome varchar(40)"+
             ", valor Float"+
@@ -68,20 +72,24 @@ public class Banco extends SQLiteOpenHelper {
 
         db.execSQL("insert into convenio (nome,ucoSadt,ucoHm,valorChHm,valorChSadt,tabHm,tabSadt" +
                 ",percPorteHm,percPorteSadt,idTabPortesHm,idTabPortesSadt) values ('CNU', 10.0,10.0,0,0,'cbhpm5','amb92',1.0,1.0,1,1)");
+        db.execSQL("insert into convenio (nome,ucoSadt,ucoHm,valorChHm,valorChSadt,tabHm,tabSadt" +
+                ",percPorteHm,percPorteSadt,idTabPortesHm,idTabPortesSadt) values ('Correios', 10.0,10.0,0,0,'cbhpm5','cbhpm5',1.0,1.0,1,1)");
+
 
         db.execSQL(CREATE_PROCEDIMENTO);
-        iProcedimentos = new InsertsProcedimentos();
-        db.execSQL(iProcedimentos.inserir());
+        InsertsProcedimentos insertsProcedimentos = new InsertsProcedimentos();
+        List<String> insertsPorc = insertsProcedimentos.inserir();
+        for (int i = 0; i < insertsPorc.size(); i++) {
+            db.execSQL(insertsPorc.get(i));
+        }
 
         db.execSQL(CREATE_TABPORTE);
-        iPortes = new InsertsPortes();
-        db.execSQL(iPortes.inserir());
-
+        db.execSQL("INSERT INTO tabelaportes (_id, nome) VALUES (1,'CBHPM 5ª 2008')");
+        db.execSQL("INSERT INTO tabelaportes (_id, nome) VALUES (2,'CBHPM 5ª 2009')");
 
         db.execSQL(CREATE_PORTEMEDICO);
-
-        db.execSQL("insert into porteMedico (nome, valor, _idTabela) values ('3A',100.0,1)");
-        db.execSQL("insert into porteMedico (nome, valor, _idTabela) values ('8A',500.50,2)");
+        iPortes = new InsertsPortes();
+        db.execSQL(iPortes.inserir());
 
     }
 

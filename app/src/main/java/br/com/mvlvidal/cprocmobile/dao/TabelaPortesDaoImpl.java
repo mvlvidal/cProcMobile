@@ -20,7 +20,7 @@ public class TabelaPortesDaoImpl implements TabelaPortesDao {
     @Override
     public TabelaPortes buscarPorId(Long id) {
 
-        SQLiteDatabase db = factory.conectar();
+        SQLiteDatabase db = factory.conectarLeitura();
         String nomeTabela = "tabelaportes";
         String[] campos = {"_id", "nome"};
         String where1 = "_id = " + id;
@@ -41,7 +41,7 @@ public class TabelaPortesDaoImpl implements TabelaPortesDao {
     public List<TabelaPortes> buscarTodos() {
 
         List<TabelaPortes> retorno = new ArrayList<>();
-        SQLiteDatabase db = factory.conectar();
+        SQLiteDatabase db = factory.conectarLeitura();
         String nomeTabela = "tabelaportes";
         String[] campos = {"_id", "nome"};
         String where1 = null;

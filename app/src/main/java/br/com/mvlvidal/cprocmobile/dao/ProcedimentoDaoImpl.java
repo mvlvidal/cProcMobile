@@ -23,7 +23,7 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
     @Override
     public Procedimento buscarPorId(Long id) {
 
-        SQLiteDatabase db = factory.conectar();
+        SQLiteDatabase db = factory.conectarLeitura();
         String tabela = "procedimento";
         String[] campos = new String[]{"_id","descricao", "codigo","ch","co","porteMedico","porteAnestesico",
                 "qtdFilme","qtdAuxilio","tipo","tabela","percPorte"};
@@ -54,15 +54,18 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
 
 
     @Override
-    public List<Procedimento> buscarTodos(String tbHm, String tbSadt) {
+    public List<Procedimento> buscarTodos(Convenio conv) {
 
         List<Procedimento> retorno = new ArrayList<>();
 
+        String tbHm = conv.getTabHm();
+        String tbSadt = conv.getTabSadt();
+
         try {
-            SQLiteDatabase db = factory.conectar();
+            SQLiteDatabase db = factory.conectarLeitura();
             String tabela = "procedimento";
-            String[] campos = new String[]{"_id", "descricao", "codigo"};
-            String where1 = "tabela = '" + tbHm + "' and tabela = '" + tbSadt + "'";
+            String[] campos = new String[]{"_id", "descricao", "codigo","tabela"};
+            String where1 = "tabela = '"+tbHm+"' OR tabela = '"+tbSadt+"'";
             String[] where2 = null;
             String groupBy = null;
             String orderBy = null;
@@ -74,13 +77,14 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
                 Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
                 String colDescricao = c.getString(c.getColumnIndex("descricao"));
                 Integer colCodigo = c.getInt(c.getColumnIndex("codigo"));
+                String colTabela = c.getString(c.getColumnIndex("tabela"));
 
-                Procedimento proc = new Procedimento(colId, colDescricao, colCodigo);
+                Procedimento proc = new Procedimento(colId, colDescricao, colCodigo,colTabela);
 
                 retorno.add(proc);
             }
         }catch(Exception e){
-            AlertDialog.Builder dlg = new AlertDialog.Builder(context);
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this.context);
             dlg.setTitle("Erro!");
             dlg.setMessage(e.getMessage());
             dlg.setNeutralButton("OK", null);

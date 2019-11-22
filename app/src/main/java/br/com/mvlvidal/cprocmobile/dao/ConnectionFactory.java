@@ -13,7 +13,11 @@ public final class ConnectionFactory {
         this.banco = new Banco(context, nomeBanco,null, versao);
     }
 
-    public SQLiteDatabase conectar() throws SQLiteException {
+    public SQLiteDatabase conectarLeitura() throws SQLiteException {
+        return banco.getReadableDatabase();
+    }
+
+    public SQLiteDatabase conectarEscrita() throws SQLiteException{
         return banco.getWritableDatabase();
     }
 }

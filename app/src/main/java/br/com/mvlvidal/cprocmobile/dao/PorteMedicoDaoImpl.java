@@ -18,7 +18,7 @@ public class PorteMedicoDaoImpl implements PorteMedicoDao {
     @Override
     public PorteMedico buscarPorId(Long id) {
 
-        SQLiteDatabase db = factory.conectar();
+        SQLiteDatabase db = factory.conectarLeitura();
 
         return null;
     }
@@ -26,7 +26,7 @@ public class PorteMedicoDaoImpl implements PorteMedicoDao {
     @Override
     public List<PorteMedico> buscarTodos() {
 
-        SQLiteDatabase db = factory.conectar();
+        SQLiteDatabase db = factory.conectarLeitura();
 
         return null;
     }
