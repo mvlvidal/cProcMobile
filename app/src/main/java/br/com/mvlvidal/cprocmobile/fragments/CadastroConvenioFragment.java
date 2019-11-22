@@ -20,6 +20,7 @@ import br.com.mvlvidal.cprocmobile.R;
 import br.com.mvlvidal.cprocmobile.adapter.ArrayAdapterProcedimento;
 import br.com.mvlvidal.cprocmobile.adapter.ArrayAdapterTabelaPorte;
 import br.com.mvlvidal.cprocmobile.adapter.ArrayAdapterTabelaProc;
+import br.com.mvlvidal.cprocmobile.dao.ConnectionFactory;
 import br.com.mvlvidal.cprocmobile.dao.TabelaPortesDaoImpl;
 import br.com.mvlvidal.cprocmobile.dao.TabelaProcedimentoDaoImpl;
 import br.com.mvlvidal.cprocmobile.model.Convenio;
@@ -64,6 +65,7 @@ public class CadastroConvenioFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_cadastro_convenio, container, false);
 
+        ConnectionFactory f = new ConnectionFactory(this.fragmentActivity);
         btSalvar = v.findViewById(R.id.btnSalvar);
         btCancelar = v.findViewById(R.id.btnCancelar);
 
@@ -83,7 +85,7 @@ public class CadastroConvenioFragment extends Fragment {
         btCancelar.setOnClickListener(clickCancelar);
 
         //Spinners
-        TabelaPortesDaoImpl tbPortesDao = new TabelaPortesDaoImpl(this.fragmentActivity);
+        TabelaPortesDaoImpl tbPortesDao = new TabelaPortesDaoImpl(f);
         TabelaProcedimentoDaoImpl tbProcDao = new TabelaProcedimentoDaoImpl();
         tabelasPorte = tbPortesDao.buscarTodos();
         tabelasProcedimento = tbProcDao.listar();

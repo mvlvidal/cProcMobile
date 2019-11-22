@@ -1,6 +1,7 @@
 package br.com.mvlvidal.cprocmobile.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,8 @@ public class InicioFragment extends Fragment {
     private ListView listaProcs;
     private List<Procedimento> procedimentos;
     private ProcedimentoDaoImpl procDao;
+    private ConnectionFactory f;
+    private Context context;
 
     public InicioFragment() {
         // Required empty public constructor
@@ -56,9 +60,9 @@ public class InicioFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Activity activity) {
-        fragmentActivity = (FragmentActivity) activity;
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        this.context = context;
+        super.onAttach(context);
     }
 
     @Override
@@ -67,31 +71,27 @@ public class InicioFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        ConnectionFactory f = new ConnectionFactory(this.fragmentActivity);
+        f = new ConnectionFactory(context);
         btSelecionar = v.findViewById(R.id.btnSelecionar);
         btSelecionar.setOnClickListener(clickSelecionar);
 
         //Spinner Convenios
 
-        spnConv = v.findViewById(R.id.spinnerConv);
+        spnConv = v.findViewById(R.id.spinnerConv);;
         ConvenioDaoImpl cdao = new ConvenioDaoImpl(f);
         convenios = cdao.buscarTodos();
-        ArrayAdapterConvenio arrayConvenio = new ArrayAdapterConvenio(this.fragmentActivity, convenios);
+        ArrayAdapterConvenio arrayConvenio = new ArrayAdapterConvenio(context, convenios);
         spnConv.setAdapter(arrayConvenio);
-        //spnConv.setOnItemSelectedListener(selectConv);
 
         //Lista Procedimentos
         listaProcs = v.findViewById(R.id.listaProcedimentos);
-        Convenio conv = (Convenio)spnConv.getSelectedItem();
-        ProcedimentoDaoImpl procDao = new ProcedimentoDaoImpl(this.fragmentActivity);
-        procedimentos = procDao.buscarTodos("cbhpm5", "cbhpm5");
-        ArrayAdapterProcedimento adapterProcedimento = new ArrayAdapterProcedimento(this.fragmentActivity, procedimentos);
-        listaProcs.setAdapter(adapterProcedimento);
+
 
         return v;
     }
 
     //----------------------------------------------------------------------//
+
     View.OnClickListener clickSelecionar = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -102,14 +102,19 @@ public class InicioFragment extends Fragment {
             ft.replace(R.id.frame, CadastroConvenioFragment.newInstance());
             ft.commit();
             */
-
             Convenio conv = (Convenio) spnConv.getSelectedItem();
-            String hm = conv.getTabHm();
-            String sadt = conv.getTabSadt();
-            procedimentos = procDao.buscarTodos(hm, sadt);
-
+            String sadt = conv.getTabHm();
+            String hm = conv.getTabSadt();
+            procDao = new ProcedimentoDaoImpl(f);
+            procedimentos = new ArrayList<>();
+            procedimentos = procDao.buscarTodos(hm,sadt);
+            System.out.println("@@@@@@@ " + hm + sadt);
+            ArrayAdapterProcedimento adapterProcedimento = new ArrayAdapterProcedimento(context, procedimentos);
+            listaProcs.setAdapter(adapterProcedimento);
         }
     };
+
+
 
     //----------------------------------------------------------------------//
 

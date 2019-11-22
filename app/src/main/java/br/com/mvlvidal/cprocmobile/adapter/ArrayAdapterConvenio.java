@@ -42,8 +42,7 @@ public class ArrayAdapterConvenio extends ArrayAdapter<Convenio> {
     }
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return super.getDropDownView(position, convertView, parent);
+    public Convenio getItem(int position) {
+        return super.getItem(position);
     }
-
 }

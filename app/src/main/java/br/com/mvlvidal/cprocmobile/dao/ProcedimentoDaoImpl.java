@@ -62,7 +62,7 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
             SQLiteDatabase db = factory.conectar();
             String tabela = "procedimento";
             String[] campos = new String[]{"_id", "descricao", "codigo"};
-            String where1 = "tabela = '" + tbHm + "' or tabela = '" + tbSadt + "'";
+            String where1 = "tabela = '" + tbHm + "' and tabela = '" + tbSadt + "'";
             String[] where2 = null;
             String groupBy = null;
             String orderBy = null;

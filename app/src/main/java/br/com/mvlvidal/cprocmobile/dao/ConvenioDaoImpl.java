@@ -112,7 +112,7 @@ public class ConvenioDaoImpl implements ConvenioDao {
         List<Convenio> retorno = new ArrayList<>();
         SQLiteDatabase db = factory.conectar();
         String nomeTabela = "convenio";
-        String[] campos = {"_id", "nome"};
+        String[] campos = {"_id", "nome","tabHm", "tabSadt"};
         String where1 = null;
         String[] where2 = null;
         String groupBy = null;
@@ -125,8 +125,10 @@ public class ConvenioDaoImpl implements ConvenioDao {
 
             Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
             String colNome = c.getString(c.getColumnIndex("nome"));
+            String colTabHm = c.getString(c.getColumnIndex("tabHm"));
+            String colTabSadt = c.getString(c.getColumnIndex("tabSadt"));
 
-            Convenio conv = new Convenio(colId,colNome);
+            Convenio conv = new Convenio(colId,colNome, colTabHm, colTabSadt);
 
             retorno.add(conv);
         }
