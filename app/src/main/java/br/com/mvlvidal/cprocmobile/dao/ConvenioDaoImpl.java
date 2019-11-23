@@ -80,7 +80,7 @@ public class ConvenioDaoImpl implements ConvenioDao {
         SQLiteDatabase db = factory.conectarLeitura();
         String nomeTabela = "convenio";
         String[] campos = {"_id", "nome", "ucoSadt", "ucoHm", "valorChHm", "valorChSadt", "tabHm",
-                "tabSadt", "percPorteHm", "percPorteSadt", "idTabPorteHm", "idTabPorteSadt"};
+                "tabSadt", "percPorteHm", "percPorteSadt", "valorFilme", "idTabPorteHm", "idTabPorteSadt"};
         String where1 = "_id = "+ id;
         String[] where2 = null;
         String groupBy = null;
@@ -89,21 +89,28 @@ public class ConvenioDaoImpl implements ConvenioDao {
 
         Cursor c = db.query(nomeTabela, campos, where1, where2, groupBy, orderBy, having);
 
-        Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
-        String colNome = c.getString(c.getColumnIndex("nome"));
-        Float colUcoSadt = c.getFloat(c.getColumnIndex("ucoSadt"));
-        Float colUcoHm = c.getFloat(c.getColumnIndex("ucoHm"));
-        Float colValorChHm = c.getFloat(c.getColumnIndex("valorChHm"));
-        Float colValorSadt = c.getFloat(c.getColumnIndex("valorChSadt"));
-        String colTabHm = c.getString(c.getColumnIndex("tabHm"));
-        String colTabSadt = c.getString(c.getColumnIndex("tabSadt"));
-        Float colPercPorteHm = c.getFloat(c.getColumnIndex("percPorteHm"));
-        Float colPercPorteSadt = c.getFloat(c.getColumnIndex("percPorteSadt"));
-        Long colIdTabPortesHm = Long.valueOf(c.getInt(c.getColumnIndex("idTabPortesHm")));
-        Long colIdTabPortesSadt = Long.valueOf(c.getInt(c.getColumnIndex("idTabPortesSadt")));
+        Convenio conv = new Convenio();
 
-        return new Convenio(colId,colNome,colUcoSadt,colUcoHm,colValorChHm,colValorSadt,colTabHm,
-                colTabSadt,colPercPorteHm,colPercPorteSadt, new TabelaPortes(colIdTabPortesHm, ""), new TabelaPortes(colIdTabPortesSadt, ""));
+        while(c.moveToFirst()) {
+            Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
+            String colNome = c.getString(c.getColumnIndex("nome"));
+            Float colUcoSadt = c.getFloat(c.getColumnIndex("ucoSadt"));
+            Float colUcoHm = c.getFloat(c.getColumnIndex("ucoHm"));
+            Float colValorChHm = c.getFloat(c.getColumnIndex("valorChHm"));
+            Float colValorSadt = c.getFloat(c.getColumnIndex("valorChSadt"));
+            String colTabHm = c.getString(c.getColumnIndex("tabHm"));
+            String colTabSadt = c.getString(c.getColumnIndex("tabSadt"));
+            Float colPercPorteHm = c.getFloat(c.getColumnIndex("percPorteHm"));
+            Float colPercPorteSadt = c.getFloat(c.getColumnIndex("percPorteSadt"));
+            Float colValorFilme = c.getFloat(c.getColumnIndex("valorFilme"));
+            Long colIdTabPortesHm = Long.valueOf(c.getInt(c.getColumnIndex("idTabPortesHm")));
+            Long colIdTabPortesSadt = Long.valueOf(c.getInt(c.getColumnIndex("idTabPortesSadt")));
+
+            conv = new Convenio(colId, colNome, colUcoSadt, colUcoHm, colValorChHm, colValorSadt, colTabHm,
+                    colTabSadt, colPercPorteHm, colPercPorteSadt, colValorFilme, new TabelaPortes(colIdTabPortesHm, ""), new TabelaPortes(colIdTabPortesSadt, ""));
+        }
+
+        return conv;
     }
 
     @Override

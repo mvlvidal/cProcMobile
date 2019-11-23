@@ -6,10 +6,9 @@ import br.com.mvlvidal.cprocmobile.model.Procedimento;
 
 public interface ProcedimentoDao {
 
-    String popularTabela();
-
     Procedimento buscarPorId(Long id);
 
     List<Procedimento> buscarTodos(Convenio convenio);
 
+    List<Float> calcularProcedimento(Long idConv, Long idProc);
 }

@@ -14,6 +14,10 @@ public class Procedimento extends AbstractModel {
     private String tabela;
     private Float percPorte;
 
+    public Procedimento(){
+
+    }
+
     public Procedimento(Long id, String descricao, Integer codigo, Float ch, Float co, String porteMedico, Integer porteAnestesico, Float qtdFilme, Integer qtdAuxilio, String tipo, String tabela, Float percPorte) {
         this.id = id;
         this.descricao = descricao;

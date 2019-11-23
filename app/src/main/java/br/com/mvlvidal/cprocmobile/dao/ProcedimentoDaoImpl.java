@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mvlvidal.cprocmobile.model.Convenio;
+import br.com.mvlvidal.cprocmobile.model.PorteMedico;
 import br.com.mvlvidal.cprocmobile.model.Procedimento;
 
 public class ProcedimentoDaoImpl implements ProcedimentoDao{
@@ -35,20 +36,24 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
 
         Cursor c = db.query(tabela, campos, where1, where2, groupBy, orderBy, having);
 
-        Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
-        String colDescricao = c.getString(c.getColumnIndex("descricao"));
-        Integer colCodigo = c.getInt(c.getColumnIndex("codigo"));
-        Float colCh = c.getFloat(c.getColumnIndex("ch"));
-        Float colCo = c.getFloat(c.getColumnIndex("co"));
-        String colPorteMed = c.getString(c.getColumnIndex("porteMedico"));
-        Integer colPorteAnes = c.getInt(c.getColumnIndex("porteAnestesico"));
-        Float colQtdFilme = c.getFloat(c.getColumnIndex("qtdFilme"));
-        Integer colQtdAuxilio = c.getInt(c.getColumnIndex("qtdAuxilio"));
-        String colTipo = c.getString(c.getColumnIndex("tipo"));
-        String colTabela = c.getString(c.getColumnIndex("tabela"));
-        Float colPercPorte = c.getFloat(c.getColumnIndex("percPorte"));
+        Procedimento proc = new Procedimento();
 
-        return new Procedimento(colId,colDescricao,colCodigo,colCh,colCo,colPorteMed,colPorteAnes,colQtdFilme,colQtdAuxilio,colTipo,colTabela, colPercPorte);
+        while(c.moveToFirst()) {
+            Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
+            String colDescricao = c.getString(c.getColumnIndex("descricao"));
+            Integer colCodigo = c.getInt(c.getColumnIndex("codigo"));
+            Float colCh = c.getFloat(c.getColumnIndex("ch"));
+            Float colCo = c.getFloat(c.getColumnIndex("co"));
+            String colPorteMed = c.getString(c.getColumnIndex("porteMedico"));
+            Integer colPorteAnes = c.getInt(c.getColumnIndex("porteAnestesico"));
+            Float colQtdFilme = c.getFloat(c.getColumnIndex("qtdFilme"));
+            Integer colQtdAuxilio = c.getInt(c.getColumnIndex("qtdAuxilio"));
+            String colTipo = c.getString(c.getColumnIndex("tipo"));
+            String colTabela = c.getString(c.getColumnIndex("tabela"));
+            Float colPercPorte = c.getFloat(c.getColumnIndex("percPorte"));
+            proc = new Procedimento(colId,colDescricao,colCodigo,colCh,colCo,colPorteMed,colPorteAnes,colQtdFilme,colQtdAuxilio,colTipo,colTabela, colPercPorte);
+        }
+        return proc;
     }
 
 
@@ -95,10 +100,42 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
         return retorno;
     }
 
-    @Override
-    public String popularTabela() {
+    public List<Float> calcularProcedimento(Long idConv, Long idProc){
 
-        return "";
+        List<Float> resultados = new ArrayList<>();
 
+        SQLiteDatabase db = factory.conectarLeitura();
+
+        ConvenioDaoImpl cdao = new ConvenioDaoImpl(factory);
+        ProcedimentoDaoImpl procdao = new ProcedimentoDaoImpl(factory);
+        PorteMedicoDaoImpl pmeddao = new PorteMedicoDaoImpl(factory);
+
+        Convenio conv = cdao.buscarPorId(idConv);
+        Procedimento proc = procdao.buscarPorId(idProc);
+
+        PorteMedico pMed;
+
+        Float totalUcoCo = 0F;
+        Float totalPorteMed = 0F;
+        Float totalCh = 0F;
+
+        if(proc.getTipo() == "sadt"){
+            totalUcoCo = proc.getCo() * conv.getUcoSadt();
+            pMed = pmeddao.buscarPorNomeETabela(proc.getPorteMedico(), conv.getTabelaPortesSadt().getId());
+            totalPorteMed = pMed.getValor();
+            totalCh = proc.getCh() * conv.getValorChSadt();
+        }else if(proc.getTipo() == "hm"){
+            totalUcoCo = proc.getCo() * conv.getUcoHm();
+            totalCh = proc.getCh() * conv.getValorChHm();
+        }
+
+        Float totalFilme = proc.getQtdFilme() * conv.getValorFilme();
+
+        resultados.add(0,totalUcoCo);
+        resultados.add(1,totalPorteMed);
+        resultados.add(2,totalCh);
+        resultados.add(3,totalFilme);
+
+        return resultados;
     }
 }

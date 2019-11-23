@@ -10,12 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Vazio"/>
+        android:text="Vazio"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/txtDescricao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Vazio"/>
+        android:text="Vazio"
+        android:textSize="20dp"/>
 </LinearLayout>

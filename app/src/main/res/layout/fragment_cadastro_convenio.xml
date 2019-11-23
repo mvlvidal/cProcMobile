@@ -15,6 +15,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <EditText
+                android:id="@+id/etId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +66,8 @@
                     android:id="@+id/spTbHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -79,7 +86,8 @@
                     android:id="@+id/spPorteHm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -155,7 +163,8 @@
                     android:id="@+id/spTbSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -174,7 +183,8 @@
                     android:id="@+id/spPorteSadt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
             </LinearLayout>
 
             <LinearLayout
@@ -232,6 +242,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/tvValorFilme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Valor Filme:"
+                    android:textSize="25dp" />
+
+                <EditText
+                    android:id="@+id/etValorFilme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+
             </LinearLayout>
 
             <Button

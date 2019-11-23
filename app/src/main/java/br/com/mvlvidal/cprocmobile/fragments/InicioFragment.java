@@ -5,15 +5,21 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.mvlvidal.cprocmobile.MainActivity;
 import br.com.mvlvidal.cprocmobile.R;
 import br.com.mvlvidal.cprocmobile.adapter.ArrayAdapterProcedimento;
 import br.com.mvlvidal.cprocmobile.dao.ConnectionFactory;
@@ -34,6 +40,7 @@ public class InicioFragment extends Fragment {
     private ProcedimentoDaoImpl procDao;
     private ConnectionFactory f;
     private Context context;
+
 
     public InicioFragment() {
         // Required empty public constructor
@@ -79,6 +86,7 @@ public class InicioFragment extends Fragment {
 
         //Lista Procedimentos
         listaProcs = v.findViewById(R.id.listaProcedimentos);
+        listaProcs.setOnItemClickListener(clickProc);
 
         return v;
     }
@@ -102,9 +110,24 @@ public class InicioFragment extends Fragment {
         }
     };
 
-
-
     //----------------------------------------------------------------------//
+
+    AdapterView.OnItemClickListener clickProc = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            Procedimento proc = (Procedimento) parent.getItemAtPosition(position);
+            Convenio conv = (Convenio) spnConv.getSelectedItem();
+
+            Long idConv = conv.getId();
+            Long idProc = proc.getId();
+
+            FragmentManager fm = fragmentActivity.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.frame, CalculoFragment.newInstance(idConv,idProc));
+            ft.commit();
+        }
+    };
 
     /**
     View.OnClickListener clickProcLista = new View.OnClickListener() {

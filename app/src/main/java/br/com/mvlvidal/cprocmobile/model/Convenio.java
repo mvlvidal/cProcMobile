@@ -11,10 +11,15 @@ public class Convenio extends AbstractModel {
     private String tabSadt;
     private Float percPorteHm;
     private Float percPorteSadt;
+    private Float valorFilme;
     private TabelaPortes tabelaPortesHm;
     private TabelaPortes tabelaPortesSadt;
 
-    public Convenio(Long id, String nome, Float ucoSadt, Float ucoHm, Float valorChHm, Float valorChSadt, String tabHm, String tabSadt, Float percPorteHm, Float percPorteSadt, TabelaPortes tabelaPortesHm, TabelaPortes tabelaPortesSadt) {
+    public Convenio(){
+
+    }
+
+    public Convenio(Long id, String nome, Float ucoSadt, Float ucoHm, Float valorChHm, Float valorChSadt, String tabHm, String tabSadt, Float percPorteHm, Float percPorteSadt, Float valorFilme, TabelaPortes tabelaPortesHm, TabelaPortes tabelaPortesSadt) {
         this.id = id;
         this.nome = nome;
         this.ucoSadt = ucoSadt;
@@ -25,9 +30,26 @@ public class Convenio extends AbstractModel {
         this.tabSadt = tabSadt;
         this.percPorteHm = percPorteHm;
         this.percPorteSadt = percPorteSadt;
+        this.valorFilme = valorFilme;
         this.tabelaPortesHm = tabelaPortesHm;
         this.tabelaPortesSadt = tabelaPortesSadt;
     }
+
+    public Convenio(String nome, Float ucoSadt, Float ucoHm, Float valorChHm, Float valorChSadt, String tabHm, String tabSadt, Float percPorteHm, Float percPorteSadt, Float valorFilme, TabelaPortes tabelaPortesHm, TabelaPortes tabelaPortesSadt) {
+        this.nome = nome;
+        this.ucoSadt = ucoSadt;
+        this.ucoHm = ucoHm;
+        this.valorChHm = valorChHm;
+        this.valorChSadt = valorChSadt;
+        this.tabHm = tabHm;
+        this.tabSadt = tabSadt;
+        this.percPorteHm = percPorteHm;
+        this.percPorteSadt = percPorteSadt;
+        this.valorFilme = valorFilme;
+        this.tabelaPortesHm = tabelaPortesHm;
+        this.tabelaPortesSadt = tabelaPortesSadt;
+    }
+
 
     public Convenio(Long id, String nome){
         this.id = id;
@@ -127,6 +149,14 @@ public class Convenio extends AbstractModel {
 
     public void setTabelaPortesSadt(TabelaPortes tabelaPortesSadt) {
         this.tabelaPortesSadt = tabelaPortesSadt;
+    }
+
+    public Float getValorFilme() {
+        return valorFilme;
+    }
+
+    public void setValorFilme(Float valorFilme) {
+        this.valorFilme = valorFilme;
     }
 
     @Override
