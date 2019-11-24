@@ -6,6 +6,10 @@ public class PorteMedico extends AbstractModel {
     private Float valor;
     private TabelaPortes tabelaPortes;
 
+    public PorteMedico(){
+
+    }
+
     public PorteMedico(Long id, String nome, Float valor, TabelaPortes tabela){
         this.id = id;
         this.nome = nome;

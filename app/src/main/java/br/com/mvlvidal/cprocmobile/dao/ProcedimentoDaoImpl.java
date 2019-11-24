@@ -38,7 +38,7 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
 
         Procedimento proc = new Procedimento();
 
-        while(c.moveToFirst()) {
+        if(c.moveToFirst()) {
             Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
             String colDescricao = c.getString(c.getColumnIndex("descricao"));
             Integer colCodigo = c.getInt(c.getColumnIndex("codigo"));
@@ -100,9 +100,9 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
         return retorno;
     }
 
-    public List<Float> calcularProcedimento(Long idConv, Long idProc){
+    public List<String> calcularProcedimento(Long idConv, Long idProc){
 
-        List<Float> resultados = new ArrayList<>();
+        List<String> resultados = new ArrayList<>();
 
         SQLiteDatabase db = factory.conectarLeitura();
 
@@ -111,31 +111,29 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
         PorteMedicoDaoImpl pmeddao = new PorteMedicoDaoImpl(factory);
 
         Convenio conv = cdao.buscarPorId(idConv);
+
+
+        //Procedimento -----------------------------------------
         Procedimento proc = procdao.buscarPorId(idProc);
+        String porteMed = proc.getPorteMedico();
+        Long tabPorte = proc.getTipo().equals("sadt") ? conv.getTabelaPortesSadt().getId() : conv.getTabelaPortesHm().getId();
 
-        PorteMedico pMed;
+        PorteMedico pMed = pmeddao.buscarPorNomeETabela(porteMed, tabPorte);
 
-        Float totalUcoCo = 0F;
-        Float totalPorteMed = 0F;
-        Float totalCh = 0F;
+        Float percPorte = proc.getTipo().equals("sadt") ? conv.getPercPorteSadt() : conv.getPercPorteHm(); //Percentual sobre PorteMedico de acordo com tipo de procedimento
+        Float uco = proc.getTipo().equals("sadt") ? conv.getUcoSadt() : conv.getUcoHm(); //UCO de acordo com tipo de procedimento
+        Float valorCh = proc.getTipo().equals("sadt") ? conv.getValorChSadt() : conv.getValorChHm(); //Valor CH de acordo com tipo de procedimento
 
-        if(proc.getTipo() == "sadt"){
-            totalUcoCo = proc.getCo() * conv.getUcoSadt();
-            pMed = pmeddao.buscarPorNomeETabela(proc.getPorteMedico(), conv.getTabelaPortesSadt().getId());
-            totalPorteMed = pMed.getValor();
-            totalCh = proc.getCh() * conv.getValorChSadt();
-        }else if(proc.getTipo() == "hm"){
-            totalUcoCo = proc.getCo() * conv.getUcoHm();
-            totalCh = proc.getCh() * conv.getValorChHm();
-        }
+        Float valorPorteMed = (porteMed == null) ? 0.0f : (pMed.getValor() * proc.getPercPorte()) * percPorte; //Se o convenio não usa CH retorna zero
+        Float valorUcoCo = uco * proc.getCo();
+        Float valorFilme = proc.getQtdFilme() * conv.getValorFilme();
+        Float valorTotalCh = proc.getCh() * valorCh;
 
-        Float totalFilme = proc.getQtdFilme() * conv.getValorFilme();
-
-        resultados.add(0,totalUcoCo);
-        resultados.add(1,totalPorteMed);
-        resultados.add(2,totalCh);
-        resultados.add(3,totalFilme);
-
+        resultados.add("R$ "+valorPorteMed);
+        resultados.add("R$ "+valorUcoCo);
+        resultados.add("R$ "+valorFilme);
+        resultados.add("R$ "+valorTotalCh);
+        resultados.add("R$ "+(valorPorteMed+valorUcoCo+valorFilme+valorTotalCh));
         return resultados;
     }
 }

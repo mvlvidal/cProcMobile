@@ -10,5 +10,5 @@ public interface ProcedimentoDao {
 
     List<Procedimento> buscarTodos(Convenio convenio);
 
-    List<Float> calcularProcedimento(Long idConv, Long idProc);
+    List<String> calcularProcedimento(Long idConv, Long idProc);
 }

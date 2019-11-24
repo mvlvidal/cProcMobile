@@ -80,7 +80,7 @@ public class ConvenioDaoImpl implements ConvenioDao {
         SQLiteDatabase db = factory.conectarLeitura();
         String nomeTabela = "convenio";
         String[] campos = {"_id", "nome", "ucoSadt", "ucoHm", "valorChHm", "valorChSadt", "tabHm",
-                "tabSadt", "percPorteHm", "percPorteSadt", "valorFilme", "idTabPorteHm", "idTabPorteSadt"};
+                "tabSadt", "percPorteHm", "percPorteSadt", "valorFilme", "idTabPortesHm", "idTabPortesSadt"};
         String where1 = "_id = "+ id;
         String[] where2 = null;
         String groupBy = null;
@@ -91,7 +91,7 @@ public class ConvenioDaoImpl implements ConvenioDao {
 
         Convenio conv = new Convenio();
 
-        while(c.moveToFirst()) {
+        if (c.moveToFirst()) {
             Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
             String colNome = c.getString(c.getColumnIndex("nome"));
             Float colUcoSadt = c.getFloat(c.getColumnIndex("ucoSadt"));
@@ -130,7 +130,6 @@ public class ConvenioDaoImpl implements ConvenioDao {
         Cursor c = db.query(nomeTabela, campos, where1, where2, groupBy, orderBy, having);
 
         while(c.moveToNext()){
-
             Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
             String colNome = c.getString(c.getColumnIndex("nome"));
             String colTabHm = c.getString(c.getColumnIndex("tabHm"));

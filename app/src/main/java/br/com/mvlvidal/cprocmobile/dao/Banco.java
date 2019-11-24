@@ -72,9 +72,9 @@ public class Banco extends SQLiteOpenHelper {
         db.execSQL(CREATE_CONVENIO);
 
         db.execSQL("insert into convenio (nome,ucoSadt,ucoHm,valorChHm,valorChSadt,tabHm,tabSadt" +
-                ",percPorteHm,percPorteSadt,valorFilme,idTabPortesHm,idTabPortesSadt) values ('CNU', 10.0,10.0,0,0,'cbhpm5','amb92',1.0,1.0,27.50,1,1)");
+                ",percPorteHm,percPorteSadt,valorFilme,idTabPortesHm,idTabPortesSadt) values ('Central Nacional Unimed', 10.0,10.0,0.6,0.6,'cbhpm5','amb92',1.0,1.0,27.50,1,1)");
         db.execSQL("insert into convenio (nome,ucoSadt,ucoHm,valorChHm,valorChSadt,tabHm,tabSadt" +
-                ",percPorteHm,percPorteSadt,valorFilme,idTabPortesHm,idTabPortesSadt) values ('Correios', 10.0,10.0,0,0,'cbhpm5','cbhpm5',1.0,1.0,28.0,1,1)");
+                ",percPorteHm,percPorteSadt,valorFilme,idTabPortesHm,idTabPortesSadt) values ('Postal Saude', 10.0,10.0,0,0,'cbhpm5','cbhpm5',1.0,1.0,28.0,1,1)");
 
 
         db.execSQL(CREATE_PROCEDIMENTO);

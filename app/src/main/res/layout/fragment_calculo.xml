@@ -20,13 +20,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Calculo do Procedimento"
-                    android:textAlignment="center"
-                    android:textSize="28dp" />
-
-                <TextView
                     android:id="@+id/tvNomeProc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -42,8 +35,9 @@
                         android:id="@+id/tvNome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total UCO x CO:"
-                        android:textSize="25dp" />
+                        android:text="UCO x CO:"
+                        android:textSize="25dp"
+                        />
 
                     <EditText
                         android:id="@+id/etTotalUcoCo"
@@ -51,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:singleLine="true"
-                        />
+                        android:enabled="false"/>
 
                 </LinearLayout>
 
@@ -64,7 +58,7 @@
                         android:id="@+id/tvTabelaHM"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Porte Médico:"
+                        android:text="Porte Médico:"
                         android:textSize="25dp" />
 
                     <EditText
@@ -73,6 +67,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:singleLine="true"
+                        android:enabled="false"
                         />
                 </LinearLayout>
 
@@ -85,7 +80,7 @@
                         android:id="@+id/tvTotalCh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total CH:"
+                        android:text="Valor CH:"
                         android:textSize="25dp" />
 
                     <EditText
@@ -94,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:singleLine="true"
-                        />
+                        android:enabled="false"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -106,14 +101,35 @@
                         android:id="@+id/tvTotalFilme"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Filme:"
+                        android:text="Filme:"
                         android:textSize="25dp" />
 
                     <EditText
                         android:id="@+id/etTotalFilme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"
+                        android:enabled="false"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/tvTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total:"
+                        android:textSize="25dp" />
+
+                    <EditText
+                        android:id="@+id/etTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:enabled="false"/>
                 </LinearLayout>
 
                 <Button

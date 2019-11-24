@@ -27,7 +27,7 @@ public class CalculoFragment extends Fragment {
     private MainActivity main;
     private Long idConv, idProc;
     private TextView tvNomeProc;
-    private EditText etTotalUcoCo,etTotalPorteMedico,etTotalCh,etTotalFilme;
+    private EditText etTotalUcoCo,etTotalPorteMedico,etTotalCh,etTotalFilme, etTotal;
 
     public CalculoFragment(){
 
@@ -56,11 +56,12 @@ public class CalculoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_calculo, container, false);
 
+        tvNomeProc = v.findViewById(R.id.tvNomeProc);
         etTotalCh = v.findViewById(R.id.etTotalCh);
-        etTotalFilme = v.findViewById(R.id.etValorFilme);
+        etTotalFilme = v.findViewById(R.id.etTotalFilme);
         etTotalPorteMedico = v.findViewById(R.id.etTotalPorteMedico);
         etTotalUcoCo = v.findViewById(R.id.etTotalUcoCo);
-
+        etTotal = v.findViewById(R.id.etTotal);
 
         if(this.getArguments() != null){
             idConv = this.getArguments().getLong("idConv");
@@ -71,16 +72,16 @@ public class CalculoFragment extends Fragment {
         ProcedimentoDaoImpl procDao = new ProcedimentoDaoImpl(f);
         Procedimento proc = procDao.buscarPorId(idProc);
 
-        List<Float> resultado = procDao.calcularProcedimento(idConv, idProc);
+        List<String> resultado = procDao.calcularProcedimento(idConv, idProc);
 
-        etTotalUcoCo.setText(String.valueOf(resultado.get(0)));
-        etTotalPorteMedico.setText(String.valueOf(resultado.get(1)));
-        etTotalCh.setText(String.valueOf(resultado.get(2)));
-        etTotalFilme.setText(String.valueOf(resultado.get(3)));
 
-        System.out.println("@@@@@@@@@@@@@@@@@@");
-        System.out.println(idConv);
-        System.out.println(idProc);
+        tvNomeProc.setText(proc.getCodigo()+" - "+proc.getDescricao());
+        etTotalPorteMedico.setText(resultado.get(0));
+        etTotalUcoCo.setText(resultado.get(1));
+        etTotalFilme.setText(resultado.get(2));
+        etTotalCh.setText(resultado.get(3));
+        etTotal.setText(resultado.get(4));
+
 
         return v;
     }

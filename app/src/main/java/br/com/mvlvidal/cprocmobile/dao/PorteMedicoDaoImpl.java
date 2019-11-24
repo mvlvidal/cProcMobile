@@ -53,7 +53,7 @@ public class PorteMedicoDaoImpl implements PorteMedicoDao {
 
             String nomeTabela = "portemedico";
             String[] campos = {"_id", "nome", "valor", "_idTabela"};
-            String where1 = "nome = '" + nome + "' AND _idTabela = " + idTab;
+            String where1 = "nome = '"+nome+"' AND _idTabela = '"+idTab+"'";
             String[] where2 = null;
             String groupBy = null;
             String orderBy = null;
@@ -61,13 +61,18 @@ public class PorteMedicoDaoImpl implements PorteMedicoDao {
 
             Cursor c = db.query(nomeTabela, campos, where1, where2, groupBy, orderBy, having);
 
-            Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
-            String colNome = c.getString(c.getColumnIndex("nome"));
-            Float colValor = c.getFloat(c.getColumnIndex("valor"));
-            Long colIdTabela = c.getLong(c.getInt(c.getColumnIndex("_idTabela")));
+            PorteMedico pMed = new PorteMedico();
 
-            return new PorteMedico(colId, colNome, colValor, new TabelaPortes(colIdTabela, ""));
+            if(c.moveToNext()) {
+                Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
+                String colNome = c.getString(c.getColumnIndex("nome"));
+                Float colValor = c.getFloat(c.getColumnIndex("valor"));
+                Long colIdTabela = c.getLong(c.getInt(c.getColumnIndex("_idTabela")));
 
+                pMed = new PorteMedico(colId, colNome, colValor, new TabelaPortes(colIdTabela, ""));
+            }
+
+            return pMed;
     }
 
 }
