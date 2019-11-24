@@ -4,10 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.mvlvidal.cprocmobile.model.Convenio;
 import br.com.mvlvidal.cprocmobile.model.PorteMedico;
 import br.com.mvlvidal.cprocmobile.model.Procedimento;
@@ -70,8 +70,8 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
             SQLiteDatabase db = factory.conectarLeitura();
             String tabela = "procedimento";
             String[] campos = new String[]{"_id", "descricao", "codigo","tabela"};
-            String where1 = "tabela = '"+tbHm+"' OR tabela = '"+tbSadt+"'";
-            String[] where2 = null;
+            String where1 = "tabela = ? AND tipo = ? OR tabela = ? AND tipo = ?";
+            String[] where2 = {tbHm,"hm",tbSadt, "sadt"};
             String groupBy = null;
             String orderBy = null;
             String having = null;
@@ -89,7 +89,7 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
                 retorno.add(proc);
             }
         }catch(Exception e){
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this.context);
+            AlertDialog.Builder dlg = new AlertDialog.Builder(context);
             dlg.setTitle("Erro!");
             dlg.setMessage(e.getMessage());
             dlg.setNeutralButton("OK", null);
@@ -129,11 +129,14 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
         Float valorFilme = proc.getQtdFilme() * conv.getValorFilme();
         Float valorTotalCh = proc.getCh() * valorCh;
 
-        resultados.add("R$ "+valorPorteMed);
-        resultados.add("R$ "+valorUcoCo);
-        resultados.add("R$ "+valorFilme);
-        resultados.add("R$ "+valorTotalCh);
-        resultados.add("R$ "+(valorPorteMed+valorUcoCo+valorFilme+valorTotalCh));
+        NumberFormat floatFormat = new DecimalFormat("0.00");
+
+        resultados.add("R$ "+floatFormat.format(valorPorteMed));
+        resultados.add("R$ "+floatFormat.format(valorUcoCo));
+        resultados.add("R$ "+floatFormat.format(valorFilme));
+        resultados.add("R$ "+floatFormat.format(valorTotalCh));
+        resultados.add("R$ "+floatFormat.format(valorPorteMed+valorUcoCo+valorFilme+valorTotalCh));
         return resultados;
     }
+
 }

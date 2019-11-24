@@ -5,10 +5,13 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,6 +31,7 @@ public class CalculoFragment extends Fragment {
     private Long idConv, idProc;
     private TextView tvNomeProc;
     private EditText etTotalUcoCo,etTotalPorteMedico,etTotalCh,etTotalFilme, etTotal;
+    private Button btnVoltar;
 
     public CalculoFragment(){
 
@@ -62,6 +66,8 @@ public class CalculoFragment extends Fragment {
         etTotalPorteMedico = v.findViewById(R.id.etTotalPorteMedico);
         etTotalUcoCo = v.findViewById(R.id.etTotalUcoCo);
         etTotal = v.findViewById(R.id.etTotal);
+        btnVoltar = v.findViewById(R.id.btnVoltarLista);
+
 
         if(this.getArguments() != null){
             idConv = this.getArguments().getLong("idConv");
@@ -75,15 +81,29 @@ public class CalculoFragment extends Fragment {
         List<String> resultado = procDao.calcularProcedimento(idConv, idProc);
 
 
-        tvNomeProc.setText(proc.getCodigo()+" - "+proc.getDescricao());
+        tvNomeProc.setText("Procedimento: "+proc.getCodigo()+" - "+proc.getDescricao());
         etTotalPorteMedico.setText(resultado.get(0));
         etTotalUcoCo.setText(resultado.get(1));
         etTotalFilme.setText(resultado.get(2));
         etTotalCh.setText(resultado.get(3));
         etTotal.setText(resultado.get(4));
 
+        btnVoltar.setOnClickListener(clickVoltar);
 
         return v;
     }
 
+    //--------------------------------------------------------------------------------//
+
+    View.OnClickListener clickVoltar = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager fm = fragmentActivity.getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.frame, InicioFragment.newInstance());
+            ft.commit();
+        }
+    };
+
+    //--------------------------------------------------------------------------------//
 }

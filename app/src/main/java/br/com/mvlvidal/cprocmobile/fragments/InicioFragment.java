@@ -19,9 +19,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.mvlvidal.cprocmobile.MainActivity;
 import br.com.mvlvidal.cprocmobile.R;
-import br.com.mvlvidal.cprocmobile.adapter.ArrayAdapterProcedimento;
 import br.com.mvlvidal.cprocmobile.dao.ConnectionFactory;
 import br.com.mvlvidal.cprocmobile.dao.ConvenioDaoImpl;
 import br.com.mvlvidal.cprocmobile.dao.ProcedimentoDaoImpl;
@@ -98,13 +96,12 @@ public class InicioFragment extends Fragment {
         public void onClick(View v) {
 
             Convenio conv = (Convenio) spnConv.getSelectedItem();
-            String sadt = conv.getTabHm();
-            String hm = conv.getTabSadt();
+            String sadt = conv.getTabSadt();
+            String hm = conv.getTabHm();
             f = new ConnectionFactory(fragmentActivity);
             procDao = new ProcedimentoDaoImpl(f);
             procedimentos = procDao.buscarTodos(conv);
-            System.out.println(procedimentos);
-            ArrayAdapterProcedimento adapterProcedimento = new ArrayAdapterProcedimento(fragmentActivity, procedimentos);
+            ArrayAdapter<Procedimento> adapterProcedimento = new ArrayAdapter<Procedimento>(fragmentActivity,android.R.layout.simple_list_item_1,procedimentos);
             listaProcs.setAdapter(adapterProcedimento);
 
         }
@@ -129,18 +126,6 @@ public class InicioFragment extends Fragment {
         }
     };
 
-    /**
-    View.OnClickListener clickProcLista = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            FragmentManager fm = fragmentActivity.getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.frame, DetalheProcFragment.newInstance());
-            ft.commit();
-        }
-    };
-    */
     //-------------------------------------------------------------------------//
 
 }

@@ -127,4 +127,9 @@ public class Procedimento extends AbstractModel {
     public void setPercPorte(Float percPorte) {
         this.percPorte = percPorte;
     }
+
+    @Override
+    public String toString() {
+        return this.codigo + " - " + this.descricao + " - " + this.tabela;
+    }
 }
