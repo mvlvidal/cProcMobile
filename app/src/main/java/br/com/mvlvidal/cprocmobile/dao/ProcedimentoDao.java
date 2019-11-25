@@ -10,5 +10,7 @@ public interface ProcedimentoDao {
 
     List<Procedimento> buscarTodos(Convenio convenio);
 
+    List<Procedimento> filtrarTodos(String filtro);
+
     List<String> calcularProcedimento(Long idConv, Long idProc);
 }

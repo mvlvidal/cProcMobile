@@ -14,8 +14,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +31,8 @@ import br.com.mvlvidal.cprocmobile.model.Procedimento;
 
 public class InicioFragment extends Fragment {
 
-    private Button btSelecionar;
-    private Button btProcLista;
+    private Button btSelecionar,btnFiltro;
+    private EditText etFiltro;
     private Spinner spnConv;
     private FragmentActivity fragmentActivity;
     private List<Convenio> convenios;
@@ -73,6 +76,8 @@ public class InicioFragment extends Fragment {
         f = new ConnectionFactory(context);
         btSelecionar = v.findViewById(R.id.btnSelecionar);
         btSelecionar.setOnClickListener(clickSelecionar);
+        //btnFiltro = v.findViewById(R.id.btnFiltro);
+        //btnFiltro.setOnClickListener(clickFiltro);
 
         //Spinner Convenios
 
@@ -81,6 +86,11 @@ public class InicioFragment extends Fragment {
         convenios = cdao.buscarTodos();
         ArrayAdapter<Convenio> arrayConvenio = new ArrayAdapter<Convenio>(this.fragmentActivity, android.R.layout.simple_list_item_1, convenios);
         spnConv.setAdapter(arrayConvenio);
+
+        //Filtro
+        //etFiltro = v.findViewById(R.id.etFiltro);
+        //btnFiltro.setEnabled(false);
+        //etFiltro.setEnabled(false);
 
         //Lista Procedimentos
         listaProcs = v.findViewById(R.id.listaProcedimentos);
@@ -103,7 +113,8 @@ public class InicioFragment extends Fragment {
             procedimentos = procDao.buscarTodos(conv);
             ArrayAdapter<Procedimento> adapterProcedimento = new ArrayAdapter<Procedimento>(fragmentActivity,android.R.layout.simple_list_item_1,procedimentos);
             listaProcs.setAdapter(adapterProcedimento);
-
+            //btnFiltro.setEnabled(true);
+            //etFiltro.setEnabled(true);
         }
     };
 
@@ -128,4 +139,18 @@ public class InicioFragment extends Fragment {
 
     //-------------------------------------------------------------------------//
 
+    View.OnClickListener clickFiltro = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //String filtro = String.valueOf(etFiltro.getText());
+            ProcedimentoDaoImpl pdao = new ProcedimentoDaoImpl(f);
+            //procedimentos = pdao.filtrarTodos(filtro);
+            if(procedimentos == null){
+                Toast.makeText(context, "Procedimento não encontrado!", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    };
+
+    //------------------------------------------------------------------------//
 }

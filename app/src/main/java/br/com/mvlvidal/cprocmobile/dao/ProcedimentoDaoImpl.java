@@ -100,6 +100,38 @@ public class ProcedimentoDaoImpl implements ProcedimentoDao{
         return retorno;
     }
 
+    @Override
+    public List<Procedimento> filtrarTodos(String filtro) {
+
+        List<Procedimento> retorno = new ArrayList<>();
+
+        if(filtro.equals("")) {
+            SQLiteDatabase db = factory.conectarLeitura();
+            String tabela = "procedimento";
+            String[] campos = new String[]{"_id", "descricao", "codigo", "tabela"};
+            String where1 = "descricao LIKE '%" + filtro + "%' OR codigo LIKE '%" + filtro + "%'";
+            String[] where2 = null;
+            String groupBy = null;
+            String orderBy = null;
+            String having = null;
+
+            Cursor c = db.query(tabela, campos, where1, where2, groupBy, orderBy, having);
+
+            while (c.moveToNext()) {
+                Long colId = Long.valueOf(c.getInt(c.getColumnIndex("_id")));
+                String colDescricao = c.getString(c.getColumnIndex("descricao"));
+                Integer colCodigo = c.getInt(c.getColumnIndex("codigo"));
+                String colTabela = c.getString(c.getColumnIndex("tabela"));
+
+                Procedimento proc = new Procedimento(colId, colDescricao, colCodigo, colTabela);
+
+                retorno.add(proc);
+            }
+        }
+
+        return retorno;
+    }
+
     public List<String> calcularProcedimento(Long idConv, Long idProc){
 
         List<String> resultados = new ArrayList<>();
